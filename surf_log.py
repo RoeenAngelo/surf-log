@@ -19,6 +19,22 @@ def view_spots():
     for spot in spots:
         print(spot)
 
+def log_session():
+    date = input("Enter Date: ") 
+    time = input("Enter Time: ")
+    wave_height = input("Enter Wave Height: ") 
+    wind = input("Enter Wind: ") 
+    tide = input("Enter Tide: ") 
+    crowd = input("Enter Crowd: ") 
+    uv = input("Enter UV: ") 
+    board = input("Enter Board: ") 
+    fins = input("Enter Fins: ") 
+    duration = input("Enter Duration: ") 
+    rating = int(input("Enter Rating: ")) 
+    notes = input("Enter Notes: ")
+    session = Session(date, time, wave_height, wind, tide, crowd, uv, board, fins, duration, rating, notes)
+    sessions.append(session)
+    print(f"Session on {date} has been added! 🤙")
 
 def main():
     while True:
@@ -35,7 +51,7 @@ def main():
         if choice == "1":
             add_spot()
         elif choice == "2":
-            print("Log a session")
+            log_session()
         elif choice == "3":
             view_spots()
         elif choice == "4":
