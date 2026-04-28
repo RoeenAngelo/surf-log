@@ -12,6 +12,14 @@ def add_spot():
     spots.append(spot)
     print(f"{name} has been added to your spots! 🤙")
 
+def view_spots():
+    if not spots:
+        print("There are no spots saved")
+        return
+    for spot in spots:
+        print(spot)
+
+
 def main():
     while True:
         print("\nHowzit? Welcome to Surf Log 🏄")
@@ -29,7 +37,7 @@ def main():
         elif choice == "2":
             print("Log a session")
         elif choice == "3":
-            print("Viewing Spots")
+            view_spots()
         elif choice == "4":
             print("Showing Sessions")
         elif choice == "5":
