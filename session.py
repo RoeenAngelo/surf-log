@@ -14,7 +14,16 @@ class Session:
         self.notes = notes
 
     def __str__(self):
-        return f"Date: {self.date} | Time: {self.time} | Wave Height: {self.wave_height} | Wind: {self.wind} | Tide: {self.tide} | Crowd: {self.crowd} | UV: {self.uv} | Board: {self.board} | Fins: {self.fins} | Duration: {self.duration} | Rating: {self.rating} | Notes: {self.notes}"
+        divider = '-' * 50
+        return (
+            f"\n{divider}\n"
+            f"Date: {self.date} | Time: {self.time}\n"
+            f"Wave Height: {self.wave_height} | Wind: {self.wind}\n" f"Tide: {self.tide} | Crowd: {self.crowd}\n" 
+            f"UV: {self.uv} | Board: {self.board}\n" 
+            f"Fins: {self.fins} | Duration: {self.duration}\n"
+            f"Rating: {self.rating} | Notes: {self.notes}"
+            f"\n{divider}\n"
+        )
     
     def to_dict(self):
         return {

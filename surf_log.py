@@ -32,12 +32,23 @@ def log_session():
     board = input("Enter Board: ") 
     fins = input("Enter Fins: ") 
     duration = input("Enter Duration: ") 
-    rating = int(input("Enter Rating: ")) 
+    rating = get_valid_rating()
     notes = input("Enter Notes: ")
     session = Session(date, time, wave_height, wind, tide, crowd, uv, board, fins, duration, rating, notes)
     sessions.append(session)
     save_data()
     print(f"Session on {date} has been added! 🤙")
+
+def get_valid_rating():
+    while True:
+        try:
+            rating = int(input("Enter Rating: ")) 
+            if rating < 1 or rating > 10:
+                print("Rating must be between 1 and 10")
+                continue
+            return rating
+        except ValueError:
+            print("Please enter a number!")
 
 def view_sessions():
     if not sessions:
