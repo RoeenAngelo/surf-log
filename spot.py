@@ -6,3 +6,10 @@ class Spot:
 
     def __str__(self):
         return f"Spot: {self.name} | Location: {self.location} | Difficulty: {self.difficulty}"
+    
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "location" : self.location,
+            "difficulty" : self.difficulty,
+        }

@@ -1,5 +1,6 @@
 from spot import Spot
 from session import Session
+import json
 
 spots = []
 sessions = []
@@ -10,6 +11,7 @@ def add_spot():
     difficulty = input("Enter difficulty: ")
     spot = Spot(name, location, difficulty)
     spots.append(spot)
+    save_data()
     print(f"{name} has been added to your spots! 🤙")
 
 def view_spots():
@@ -34,6 +36,7 @@ def log_session():
     notes = input("Enter Notes: ")
     session = Session(date, time, wave_height, wind, tide, crowd, uv, board, fins, duration, rating, notes)
     sessions.append(session)
+    save_data()
     print(f"Session on {date} has been added! 🤙")
 
 def view_sessions():
@@ -52,7 +55,31 @@ def view_stats():
     print(f"Total Sessions: {total_sessions}")
     print(f"Average Rating: {avg_rating:.1f}")
 
+def save_data():
+    data = {
+        "spots": [spot.to_dict() for spot in spots],
+        "sessions": [session.to_dict() for session in sessions]
+    }
+
+    with open("data.json", "w") as f:
+        json.dump(data, f)
+    print("Data saved! 🤙")
+
+def load_data():
+    try:
+        with open("data.json", "r") as f:
+            data = json.load(f)
+        spots.clear()
+        spots.extend([Spot(s["name"], s["location"], s["difficulty"]) for s in data["spots"]])
+
+        sessions.clear()
+        sessions.extend([Session(s["date"], s["time"], s["wave_height"], s["wind"], s["tide"], s["crowd"], s["uv"], s["board"], s["fins"], s["duration"], s["rating"], s["notes"]) for s in data["sessions"]])
+  
+    except FileNotFoundError:
+        print("No saved data found, starting fresh!")
+
 def main():
+    load_data()
     while True:
         print("\nHowzit? Welcome to Surf Log 🏄")
         print("1. Add a surf spot")
