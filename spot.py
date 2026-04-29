@@ -5,7 +5,14 @@ class Spot:
         self.difficulty = difficulty
 
     def __str__(self):
-        return f"Spot: {self.name} | Location: {self.location} | Difficulty: {self.difficulty}"
+        divider = '-' * 50
+        return (
+            f"\n{divider}\n"
+            f"Spot: {self.name}\n"
+            f"Location: {self.location}\n" 
+            f"Difficulty: {self.difficulty}"
+            f"\n{divider}\n"
+        )
     
     def to_dict(self):
         return {
@@ -13,3 +20,5 @@ class Spot:
             "location" : self.location,
             "difficulty" : self.difficulty,
         }
+    
+    
