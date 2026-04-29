@@ -36,6 +36,13 @@ def log_session():
     sessions.append(session)
     print(f"Session on {date} has been added! 🤙")
 
+def view_sessions():
+    if not sessions:
+        print("There are no sessions saved")
+        return
+    for session in sessions:
+        print(session)
+
 def main():
     while True:
         print("\nHowzit? Welcome to Surf Log 🏄")
@@ -55,7 +62,7 @@ def main():
         elif choice == "3":
             view_spots()
         elif choice == "4":
-            print("Showing Sessions")
+            view_sessions()
         elif choice == "5":
             print("Showing Stats")
         elif choice == "6":
