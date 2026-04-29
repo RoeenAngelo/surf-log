@@ -43,6 +43,15 @@ def view_sessions():
     for session in sessions:
         print(session)
 
+def view_stats():
+    if not sessions:
+        print("There are no sessions saved")
+        return
+    total_sessions = len(sessions)
+    avg_rating = sum(session.rating for session in sessions) / total_sessions
+    print(f"Total Sessions: {total_sessions}")
+    print(f"Average Rating: {avg_rating:.1f}")
+
 def main():
     while True:
         print("\nHowzit? Welcome to Surf Log 🏄")
@@ -64,7 +73,7 @@ def main():
         elif choice == "4":
             view_sessions()
         elif choice == "5":
-            print("Showing Stats")
+            view_stats()
         elif choice == "6":
             print("Later, surfer! 🤙")
             break
