@@ -20,6 +20,11 @@ def view_spots():
         return
     for spot in spots:
         print(spot)
+    answer = get_valid_yes_or_no("Would you like to delete a spot? (y/n): ")
+    if answer == "y":
+        delete_spot()
+    elif answer == "n":
+        return
 
 def log_session():
     date = input("Enter Date: ") 
@@ -50,12 +55,25 @@ def get_valid_rating():
         except ValueError:
             print("Please enter a number!")
 
+def get_valid_yes_or_no(prompt):
+    while True:
+        answer = input(prompt).lower()
+        if answer not in ["y", "n"]:
+            print("Answer must be y or n")
+            continue
+        return answer
+
 def view_sessions():
     if not sessions:
         print("There are no sessions saved")
         return
     for session in sessions:
         print(session)
+    answer = get_valid_yes_or_no("Would you like to delete a session? (y/n): ")
+    if answer == "y":
+        delete_session()
+    elif answer == "n":
+        return
 
 def view_stats():
     if not sessions:
@@ -89,6 +107,53 @@ def load_data():
     except FileNotFoundError:
         print("No saved data found, starting fresh!")
 
+def delete_spot():
+    if not spots:
+        print("There are no spots saved")
+        return
+    for index, spot in enumerate(spots, 1):
+        print(f"{index}. {spot.name} - {spot.location}")
+    print("0. Cancel")
+    while True:
+        try:
+            index = int(input("Select a spot: ")) 
+            if index < 0 or index > len(spots):
+                print("Please enter the correct spot")
+                continue
+            if index == 0:
+                return
+            spot_name = spots[index -1].name
+            spots.pop(index - 1)
+            print(f"{spot_name} has been deleted") 
+            save_data()
+            break
+        except ValueError:
+            print("Please enter a number!")
+
+def delete_session():
+    if not sessions:
+        print("There are no sessions saved")
+        return
+    for index, session in enumerate(sessions, 1):
+        print(f"{index}. {session.date} - {session.time}")
+    print("0. Cancel")
+    while True:
+        try:
+            index = int(input("Select a session: ")) 
+            if index < 0 or index > len(sessions):
+                print("Please enter the correct session")
+                continue
+            if index == 0:
+                return
+            session_date = sessions[index -1].date
+            sessions.pop(index - 1)
+            print(f"Surf session on {session_date} has been deleted") 
+            save_data()
+            break
+        except ValueError:
+            print("Please enter a number!")
+ 
+
 def main():
     load_data()
     while True:
@@ -100,7 +165,7 @@ def main():
         print("5. View stats")
         print("6. Quit")
 
-        choice = input("\nEnter your choice:")
+        choice = input("\nEnter your choice: ")
 
         if choice == "1":
             add_spot()
